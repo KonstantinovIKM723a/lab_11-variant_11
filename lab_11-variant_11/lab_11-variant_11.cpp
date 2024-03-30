@@ -1,20 +1,81 @@
-// lab_11-variant_11.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-#include <iostream>
+﻿#include <iostream>;
+#include "windows.h";
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+
+    //1. Ввести значення 2-х цілих змінних а і b. Направити два покажчика на ці змінні. Потім поміняти місцями значення змінних а і b через їх покажчики.
+
+    int a, b;
+    cout << "Введіть значення змінної a: ";
+    cin >> a;
+    cout << "Введіть значення змінної b: ";
+    cin >> b;
+
+    cout << "a = " << a << "; b = " << b << endl;
+
+    int *pa = &a;
+    int *pb = &b;
+
+    a = *pa + *pb;
+    b = *pa - *pb;
+    a = *pa - *pb;
+
+    cout << "a = " << a << "; b = " << b << endl << endl;
+
+    //2. Описати 2 покажчика на логічний тип. Виділити для них динамічну пам'ять. Присвоїти значення true і false у виділену пам'ять. Поміняти місцями їх значення.
+
+    bool *c = new bool;
+    bool *d = new bool;
+
+    *c = true;
+    *d = false;
+
+    cout << "*c = " << *c << "; *d = " << *d << endl;
+
+    bool *e = c;
+
+    c = d;
+    d = e;
+
+    cout << "*c = " << *c << "; *d = " << *d << endl << endl;
+
+   // c = d;
+
+    delete c;
+    delete d;
+    c = nullptr;
+    d = nullptr;
+
+    //3. Створити динамічні масиви, використовуючи покажчики. 
+    //Дано 2 масиви х[n] і у[m]. Скільки разів зустрічається останній елемент першого масиву х[n] у другому масиві у[m]?
+
+    int m, n, k = 0;
+    cout << "Введіть довжину масива \"x\": ";
+    cin >> n;
+    cout << "Введіть довжину масива \"y\": ";
+    cin >> m;
+
+    int *x = new int[n];
+    int *y = new int[m];
+
+    srand(time(NULL));
+
+    for (int i = 0; i < n; i++) x[i] = rand() % 19 - 9;
+    for (int i = 0; i < m; i++) y[i] = rand() % 19 - 9;
+
+    cout << endl << "Масив \"x\": ";
+    for (int i = 0; i < n; i++) cout << x[i] << "\t"; 
+    cout << endl << "Масив \"y\": ";
+    for (int i = 0; i < m; i++) cout << y[i] << "\t";
+    cout << endl;
+
+    for (int i = 0; i < m; i++) {
+        if (y[i] == x[n - 1]) k++;
+    }
+
+    cout << "Значення " << x[n - 1] << " (останній елемент в масиві \"x\"), зустрічається в масиві \"y\" " << k << " разів" << endl;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
